@@ -1,0 +1,65 @@
+from pprint import pprint
+
+number1 = int(input())
+
+inheritance = {}
+
+used = []
+
+# print(number)
+
+for x in range(number1):
+    inputted = input().split(":")
+    cn_left = inputted[0]
+    if len(inputted) == 1:
+        cn_right = []
+        inheritance[cn_left.strip()] = cn_right
+    else:
+        cn_right = inputted[1]
+        inheritance[cn_left.strip()] = cn_right.split()
+    # print(cn_left)
+    # print(cn_right)
+
+# pprint(inheritance)
+
+number2 = int(input())
+
+
+def check(a, b):
+    if a in inheritance[b]:
+        return "Yes"
+    else:
+        temp = "No"
+        for element in inheritance[b]:
+            if check(a, element) == "Yes":
+                temp = "Yes"
+        return temp
+
+
+def checkException(exception):
+    if exception in used:
+        return True
+    else:
+        temp = False
+        for element in inheritance[exception]:
+            if checkException(element):
+                temp = True
+        return temp
+
+
+for y in range(number2):
+    exception = input()
+    if checkException(exception):
+        print(exception)
+    else:
+        used.append(exception)
+
+# for y in range(number2):
+#     cn_out_left, cn_out_right = input().split()
+#     if cn_out_right in inheritance:
+#         if cn_out_right == cn_out_left:
+#             print("Yes")
+#         else:
+#             print(check(cn_out_left, cn_out_right))
+#     else:
+#         print("No")
